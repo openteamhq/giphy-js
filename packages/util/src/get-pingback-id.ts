@@ -16,7 +16,9 @@ const getPingbackId = () => {
     if (!pingbackId) {
         try {
             // it exists in storage
-            pingbackId = sessionStorage.getItem('giphyPingbackId') as string
+            if (sessionStorage) {
+                pingbackId = sessionStorage.getItem('giphyPingbackId') as string
+            }
         } catch (_) {}
         if (!pingbackId) {
             // we need to create it
@@ -28,8 +30,10 @@ const getPingbackId = () => {
                 pingbackId = noUUIDRandom()
             }
             try {
-                // save in storage
-                sessionStorage.setItem('giphyPingbackId', pingbackId)
+                if (sessionStorage) {
+                    // save in storage
+                    sessionStorage.setItem('giphyPingbackId', pingbackId)
+                }
             } catch (_) {}
         }
     }
